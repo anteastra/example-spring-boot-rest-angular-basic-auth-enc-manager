@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <title>Distributed encoders manager</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body ng-app="hello" ng-cloak class="ng-cloak">
+<div class="container">
+    <div ng-controller="navigation">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" class="active"><a href="#/">home</a></li>
+                    <li role="presentation"><a href="#/login">login</a></li>
+                    <li role="presentation" ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-view class="container"></div>
+<script src="js/hello.js"></script>
+</body>
+</html>
