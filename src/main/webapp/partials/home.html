@@ -1,0 +1,29 @@
+<div class="container">
+    <div ng-controller="navigation">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" class="active"><a href="#/">home</a></li>
+                    <li role="presentation" ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h1>Greeting</h1>
+
+    <div class="col-md-6" ng-show="authenticated">
+        <div class="well well-lg">
+            <p>The ID is {{greeting.id}}</p>
+
+            <p>The content is {{greeting.content}}</p>
+        </div>
+    </div>
+    <div class="col-md-6" ng-show="!authenticated">
+        <div class="well well-lg">
+            <p>Login to see your greeting</p>
+        </div>
+    </div>
+</div>
