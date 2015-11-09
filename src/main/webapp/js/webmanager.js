@@ -17,21 +17,18 @@ angular.module('webmanager', ['ngRoute', 'ngCookies'])
     .controller('LoginController', function ($rootScope, $scope, $http, $location, $cookieStore) {
         $scope.rememberMe = false;
         $scope.login = function () {
-            $rootScope.credentials = {};
-            $rootScope.credentials.username = $scope.username;
-            $rootScope.credentials.password = $scope.password;
-            console.log($scope.username + " " + $scope.password);
+            console.log("Login with credentials " + $scope.username + ":" + $scope.password);
             var headerAuthData = {
                 authorization: "Basic "
-                + btoa($rootScope.credentials.username + ":" + $rootScope.credentials.password)
+                + btoa($scope.username + ":" + $scope.password)
             };
 
             $http.get('/user', {headers: headerAuthData}).success(function (data) {
                 if (data.name) {
                     $rootScope.authenticated = true;
                     $rootScope.user = data;
-                    console.log($rootScope.user);
                     $rootScope.headerAuthData = headerAuthData;
+                    console.log("User object recieved: " + $rootScope.user);
                     if ($scope.rememberMe) {
                         $cookieStore.put('headerAuthData', headerAuthData);
                     }
@@ -60,7 +57,7 @@ angular.module('webmanager', ['ngRoute', 'ngCookies'])
             if (data.name) {
                 $rootScope.authenticated = true;
                 $rootScope.user = data;
-                console.log($rootScope.user);
+                console.log("User object recieved: " + $rootScope.user);
                 $rootScope.headerAuthData = headerAuthData;
                 $location.path("/home");
             } else {
