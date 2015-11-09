@@ -7,6 +7,8 @@ angular.module('webmanager', ['ngRoute', 'ngCookies'])
         }).when('/login', {
             templateUrl: 'partials/login.html',
             controller: 'LoginController'
+        }).when('/brand', {
+            templateUrl: 'partials/brand.html'
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -46,56 +48,6 @@ angular.module('webmanager', ['ngRoute', 'ngCookies'])
         $http.get('/resource/').success(function (data) {
             $scope.greeting = data;
         })
-    })
-    .controller('navigation', function ($rootScope, $scope, $http, $location, $cookieStore) {
-
-        var authenticate = function (credentials, callback) {
-
-            var headers = credentials ? {
-                authorization: "Basic "
-                + btoa(credentials.username + ":" + credentials.password)
-            } : {};
-
-            $http.get('/user', {headers: headers}).success(function (data) {
-                if (data.name) {
-                    $rootScope.authenticated = true;
-                } else {
-                    $rootScope.authenticated = false;
-                }
-                callback && callback();
-            }).error(function () {
-                $rootScope.authenticated = false;
-                callback && callback();
-            });
-
-        }
-
-        authenticate();
-        $scope.credentials = {};
-        $scope.login = function () {
-            authenticate($scope.credentials, function () {
-                if ($rootScope.authenticated) {
-                    $location.path("/");
-                    $scope.error = false;
-                } else {
-                    $location.path("/old-login");
-                    $scope.error = true;
-                }
-            });
-        };
-        $scope.logout = function () {
-            $rootScope.authenticated = false;
-            $cookieStore.remove('headerAuthData');
-            $rootScope.user = undefined;
-            $rootScope.headerAuthData = undefined;
-            $location.path("/login");
-
-            $http.post('logout', {}).success(function () {
-                $rootScope.authenticated = false;
-            }).error(function (data) {
-                $rootScope.authenticated = false;
-            });
-        }
     }).run(function ($rootScope, $location, $cookieStore, $http) {
 
     /* Try getting valid user from cookie or go to login page */
@@ -118,6 +70,20 @@ angular.module('webmanager', ['ngRoute', 'ngCookies'])
             $rootScope.authenticated = false;
         });
         console.log(headerAuthData);
+    }
+
+    $rootScope.logout = function () {
+        $rootScope.authenticated = false;
+        $cookieStore.remove('headerAuthData');
+        delete $rootScope.user;
+        delete $rootScope.headerAuthData;
+        $location.path("/login");
+
+        $http.post('logout', {}).success(function () {
+            $rootScope.authenticated = false;
+        }).error(function (data) {
+            $rootScope.authenticated = false;
+        });
     }
 
 });
