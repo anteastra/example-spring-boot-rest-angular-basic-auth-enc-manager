@@ -23,6 +23,19 @@ module.factory("loginService", function ($rootScope, $http, $cookieStore, $locat
             }).error(function () {
                 $rootScope.authenticated = false;
             });
+        },
+        logout: function (successLocation) {
+            $rootScope.authenticated = false;
+            $cookieStore.remove('headerAuthData');
+            delete $rootScope.user;
+            delete $rootScope.headerAuthData;
+            $location.path(successLocation);
+
+            $http.post('logout', {}).success(function () {
+                $rootScope.authenticated = false;
+            }).error(function (data) {
+                $rootScope.authenticated = false;
+            });
         }
     };
 });
