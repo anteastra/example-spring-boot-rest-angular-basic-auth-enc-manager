@@ -22,7 +22,7 @@ public class Security extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/index.html", "/home.html", "/login.html", "/partials/*","/").permitAll().anyRequest()
+                .antMatchers("/index.html", "/partials/*","/").permitAll().anyRequest()
                 .authenticated().and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository());
