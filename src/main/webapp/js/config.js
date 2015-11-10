@@ -12,11 +12,20 @@ angular.module('webmanager')
         $routeProvider.when('/', {
             templateUrl: 'partials/home.html',
             controller: 'HomeController'
+        }).when('/home', {
+            templateUrl: 'partials/home.html',
+            controller: 'HomeController'
         }).when('/login', {
             templateUrl: 'partials/login.html',
             controller: 'LoginController'
         }).when('/brand', {
             templateUrl: 'partials/brand.html'
+        }).when('/createEncoder', {
+            templateUrl: 'partials/editEncoder.html',
+            controller: 'HomeController'
+        }).when('/editEncoder', {
+            templateUrl: 'partials/editEncoder.html',
+            controller: 'HomeController'
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
